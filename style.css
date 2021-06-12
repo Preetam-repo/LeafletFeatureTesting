@@ -1,0 +1,33 @@
+* {
+  scroll-behavior: unset;
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow-y: hidden;
+  height: 100vh;
+}
+row {
+  height: 100vh;
+}
+#map {
+  height: 98vh;
+}
+.column {
+  padding: 7px;
+  background-color: aquamarine;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+li {
+  list-style: none;
+  margin-bottom: 7px;
+}
+#searchResults {
+  opacity: 0;
+  background-color: azure;
+  height: 400px;
+  /* opacity: 0; */
+}
