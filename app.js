@@ -283,10 +283,27 @@ const id = navigator.geolocation.watchPosition((pos) => {
 
   // map.removeControl(control);
   // console.log(control._selectedRoute?.waypoints);
-  control.setWaypoints([
-    L.latLng(pos.coords.latitude, pos.coords.longitude),
-    L.latLng(target.latitude, target.longitude),
-  ]);
+  // control.setWaypoints([
+  //   L.latLng(pos.coords.latitude, pos.coords.longitude),
+  //   L.latLng(target.latitude, target.longitude),
+  // ]);
+  L.Routing.control({
+    router: L.Routing.esri({
+      liveTraffic: true,
+      profile: "Driving",
+      serviceUrl:
+        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+    }),
+    waypoints: [
+      L.latLng(pos.coords.latitude, pos.coords.longitude),
+      L.latLng(target.latitude, target.longitude),
+    ],
+
+    geocoder: L.Control.Geocoder.nominatim(),
+    autoRoute: true,
+    fitSelectedRoutes: true,
+    show: false,
+  }).addTo(map);
 
   if (
     target.latitude === pos.coords.latitude &&
