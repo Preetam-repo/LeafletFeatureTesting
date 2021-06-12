@@ -26,6 +26,7 @@ const form = document.querySelector("form");
 const searchIn = document.querySelector("#search");
 const searchResult = document.querySelector("#searchResults");
 const myLoc = [28.606556, 77.063133];
+let control = new L.Control();
 let target = {
   latitude: 28.5977029,
   longitude: 77.0574221,
@@ -116,7 +117,7 @@ navigator.geolocation.getCurrentPosition(
     // const map = L.map("map");
 
     //========== ROUTING BETWEEN TWO PLACES=========//
-    var control = L.Routing.control({
+    control = L.Routing.control({
       router: L.Routing.esri({
         liveTraffic: true,
         profile: "Driving",
@@ -143,11 +144,6 @@ navigator.geolocation.getCurrentPosition(
       console.log(e.route.summary.totalDistance);
       console.log(e.route.summary.totalTime);
       // console.log(e.getPlan());
-    });
-
-    navigator.geolocation.watchPosition(function (e) {
-      console.log(e);
-      control.spliceWaypoints(0, 1, [e.coords.latitude, e.coords.longitude]);
     });
 
     //===============================================//
@@ -406,3 +402,18 @@ navigator.geolocation.getCurrentPosition(
 // }
 
 // map.on("locationfound", onLocationFound);
+
+//////////////////4////////////////////////
+
+navigator.geolocation.watchPosition(
+  function (e) {
+    console.log(control.getWaypoints());
+    console.log(e);
+    control.spliceWaypoints(0, 1, [e.coords.latitude, e.coords.longitude]);
+  },
+  (error) => console.error(error),
+  {
+    enableHighAccuracy: true,
+    timeout: 20000,
+  }
+);
