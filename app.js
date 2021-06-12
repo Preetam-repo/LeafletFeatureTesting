@@ -242,81 +242,72 @@ const myLoc = [28.606556, 77.063133];
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
+////////////////////////   1    /////////////////////////////
 // Our Users Lat Lng
 let target = {
   latitude: 28.5977029,
   longitude: 77.0574221,
 };
 let map = L.map("map");
-map.setView(dwarka5, 18);
-const tiles = L.tileLayer(tileUrl, {
-  attribution: attribution,
-  maxZoom: 20, // max zoom - even if the images will get blurred
-  maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
-});
-tiles.addTo(map);
+// map.setView(dwarka5, 18);
+// // const tiles = L.tileLayer(tileUrl, {
+// //   attribution: attribution,
+// //   maxZoom: 20, // max zoom - even if the images will get blurred
+// //   maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
+// // });
+// // tiles.addTo(map);
 
-let control = L.Routing.control({
-  router: L.Routing.esri({
-    liveTraffic: true,
-    profile: "Driving",
-    serviceUrl:
-      "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
-  }),
-  // waypoints: [
-  //   L.latLng(pos.coords.latitude, pos.coords.longitude),
-  //   L.latLng(target.latitude, target.longitude),
-  // ],
-  waypoints: [null],
-  geocoder: L.Control.Geocoder.nominatim(),
-  autoRoute: true,
-  fitSelectedRoutes: true,
-  show: false,
-}).addTo(map);
-L.Routing.errorControl(control).addTo(map);
+// let control = L.Routing.control({
+//   router: L.Routing.esri({
+//     liveTraffic: true,
+//     profile: "Driving",
+//     serviceUrl:
+//       "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+//   }),
+//   // waypoints: [
+//   //   L.latLng(pos.coords.latitude, pos.coords.longitude),
+//   //   L.latLng(target.latitude, target.longitude),
+//   // ],
+//   waypoints: [null],
+//   geocoder: L.Control.Geocoder.nominatim(),
+//   autoRoute: true,
+//   fitSelectedRoutes: true,
+//   show: false,
+// }).addTo(map);
+// L.Routing.errorControl(control).addTo(map);
 
-const id = navigator.geolocation.watchPosition((pos) => {
-  // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
-  // settingUp Tiles On Map
-  // routing
+// const id = navigator.geolocation.watchPosition((pos) => {
+//   control = L.Routing.control({
+//     router: L.Routing.esri({
+//       liveTraffic: true,
+//       profile: "Driving",
+//       serviceUrl:
+//         "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+//     }),
+//     waypoints: [
+//       L.latLng(pos.coords.latitude, pos.coords.longitude),
+//       L.latLng(target.latitude, target.longitude),
+//     ],
 
-  map.removeControl(control);
-  // console.log(control._selectedRoute?.waypoints);
-  // control.setWaypoints([
-  //   L.latLng(pos.coords.latitude, pos.coords.longitude),
-  //   L.latLng(target.latitude, target.longitude),
-  // ]);
-  control = L.Routing.control({
-    router: L.Routing.esri({
-      liveTraffic: true,
-      profile: "Driving",
-      serviceUrl:
-        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
-    }),
-    waypoints: [
-      L.latLng(pos.coords.latitude, pos.coords.longitude),
-      L.latLng(target.latitude, target.longitude),
-    ],
+//     geocoder: L.Control.Geocoder.nominatim(),
+//     // autoRoute: true,
+//     // fitSelectedRoutes: true,
+//     show: false,
+//   }).addTo(map);
 
-    geocoder: L.Control.Geocoder.nominatim(),
-    autoRoute: true,
-    fitSelectedRoutes: true,
-    show: false,
-  }).addTo(map);
+//   if (
+//     target.latitude === pos.coords.latitude &&
+//     target.longitude === pos.coords.longitude
+//   ) {
+//     console.log("Congratulations, you reached the target");
+//     navigator.geolocation.clearWatch(id);
+//   } else {
+//     console.log("comming");
+//     // Delivery Boys Lat and Long
+//   }
+// });
 
-  if (
-    target.latitude === pos.coords.latitude &&
-    target.longitude === pos.coords.longitude
-  ) {
-    console.log("Congratulations, you reached the target");
-    navigator.geolocation.clearWatch(id);
-  } else {
-    console.log("comming");
-    // Delivery Boys Lat and Long
-  }
-});
-
+///////////////////////////// 2 ///////////////////////////////////////
 // var id, target, options;
 
 // function success(pos) {
@@ -346,3 +337,27 @@ const id = navigator.geolocation.watchPosition((pos) => {
 // };
 
 // id = navigator.geolocation.watchPosition(success, error, options);
+
+/////////////////////////////// 3 /////////////////////////////////////
+
+let googleStreets = L.tileLayer(
+  "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+  {
+    maxZoom: 20,
+    subdomains: ["mt0", "mt1", "mt2", "mt3"],
+    maxNativeZoom: 19,
+  }
+).addTo(map);
+
+map.locate({ watch: true });
+map.setView(dwarka5, 18);
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+  L.marker(e.latlng)
+    .addTo(map)
+    .bindPopup("You are within " + radius + " meters from this point")
+    .openPopup();
+  // L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on("locationfound", onLocationFound);
