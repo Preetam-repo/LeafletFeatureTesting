@@ -249,6 +249,20 @@ navigator.geolocation.getCurrentPosition((pos) => {
     maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
   });
   tiles.addTo(map);
+
+  L.Routing.control({
+    router: L.Routing.esri({
+      serviceUrl:
+        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+    }),
+    waypoints: [
+      L.latLng(pos.coords.latitude, pos.coords.longitude),
+      L.latLng(target.latitude, target.longitude),
+    ],
+    autoRoute: true,
+    fitSelectedRoutes: true,
+    show: false,
+  }).addTo(map);
 });
 
 var id, target, options;
@@ -266,18 +280,6 @@ function success(pos) {
   } else {
     // console.log("comming");
     // Delivery Boys Lat and Long
-    L.Routing.control({
-      router: L.Routing.esri({
-        serviceUrl:
-          "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
-      }),
-      waypoints: [
-        L.latLng(crd.latitude, crd.longitude),
-        L.latLng(target.latitude, target.longitude),
-      ],
-      fitSelectedRoutes: true,
-      show: false,
-    }).addTo(map);
   }
 }
 
@@ -297,4 +299,4 @@ options = {
   maximumAge: 30000,
 };
 
-id = navigator.geolocation.watchPosition(success, error, options);
+// id = navigator.geolocation.watchPosition(success, error, options);
