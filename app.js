@@ -248,10 +248,16 @@ navigator.geolocation.getCurrentPosition(
         console.log("comming");
         // Delivery Boys Lat and Long
         L.Routing.control({
+          router: L.Routing.esri({
+            serviceUrl:
+              "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+          }),
           waypoints: [
             L.latLng(crd.latitude, crd.longitude),
             L.latLng(target.latitude, target.longitude),
           ],
+          fitSelectedRoutes: true,
+          show: false,
         }).addTo(map);
       }
     }
