@@ -238,6 +238,12 @@ const myLoc = [28.606556, 77.063133];
 // );
 
 let map;
+// Our Users Lat Lng
+let target = {
+  latitude: 28.5977029,
+  longitude: 77.0574221,
+};
+
 navigator.geolocation.getCurrentPosition((pos) => {
   map = L.map("map").setView([pos.coords.latitude, pos.coords.longitude], 18);
   // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
@@ -250,53 +256,68 @@ navigator.geolocation.getCurrentPosition((pos) => {
   });
   tiles.addTo(map);
 
-  L.Routing.control({
+  var control = L.Routing.control({
     router: L.Routing.esri({
+      liveTraffic: true,
+      profile: "Driving",
+      steps: true,
       serviceUrl:
         "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
     }),
+
+    alternatives: true,
+    geocoder: L.Control.Geocoder.nominatim(),
+    show: false,
+    fitSelectedRoutes: true,
     waypoints: [
       L.latLng(pos.coords.latitude, pos.coords.longitude),
       L.latLng(target.latitude, target.longitude),
     ],
-    autoRoute: true,
-    fitSelectedRoutes: true,
-    show: false,
   }).addTo(map);
+
+  L.Routing.errorControl(control).addTo(map);
+  // L.Routing.control({
+  //   router: L.Routing.esri({
+  //     serviceUrl:
+  //       "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+  //   }),
+  //   waypoints: [
+  //     L.latLng(pos.coords.latitude, pos.coords.longitude),
+  //     L.latLng(target.latitude, target.longitude),
+  //   ],
+  //   autoRoute: true,
+  //   fitSelectedRoutes: true,
+  //   show: false,
+  // }).addTo(map);
+  // L.Routing.errorControl(control).addTo(map);
 });
 
-var id, target, options;
+// var id, target, options;
 
-function success(pos) {
-  var crd = pos.coords;
-  // var latitude = 28.606556;
-  // var longitude = 77.063133;
-  // console.log("Google : ", myLoc);
-  // console.log("Browser : ", [pos.coords.latitude, pos.coords.longitude]);
+// function success(pos) {
+//   var crd = pos.coords;
+//   // var latitude = 28.606556;
+//   // var longitude = 77.063133;
+//   // console.log("Google : ", myLoc);
+//   // console.log("Browser : ", [pos.coords.latitude, pos.coords.longitude]);
 
-  if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-    console.log("Congratulations, you reached the target");
-    navigator.geolocation.clearWatch(id);
-  } else {
-    // console.log("comming");
-    // Delivery Boys Lat and Long
-  }
-}
+//   if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+//     console.log("Congratulations, you reached the target");
+//     navigator.geolocation.clearWatch(id);
+//   } else {
+//     // console.log("comming");
+//     // Delivery Boys Lat and Long
+//   }
+// }
 
-function error(err) {
-  console.warn("ERROR(" + err.code + "): " + err.message);
-}
+// function error(err) {
+//   console.warn("ERROR(" + err.code + "): " + err.message);
+// }
 
-// Our Users Lat Lng
-target = {
-  latitude: 28.5977029,
-  longitude: 77.0574221,
-};
-
-options = {
-  enableHighAccuracy: true,
-  timeout: 50000,
-  maximumAge: 30000,
-};
+// let options = {
+//   enableHighAccuracy: true,
+//   timeout: 50000,
+//   maximumAge: 30000,
+// };
 
 // id = navigator.geolocation.watchPosition(success, error, options);
