@@ -243,15 +243,14 @@ const myLoc = [28.606556, 77.063133];
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-let map;
 // Our Users Lat Lng
 let target = {
   latitude: 28.5977029,
   longitude: 77.0574221,
 };
-
+let map = L.map("map");
+map.setView(dwarka5, 18);
 navigator.geolocation.watchPosition((pos) => {
-  map = L.map("map").setView([pos.coords.latitude, pos.coords.longitude], 18);
   // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
 
   // settingUp Tiles On Map
