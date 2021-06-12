@@ -276,16 +276,28 @@ var control = L.Routing.control({
 }).addTo(map);
 L.Routing.errorControl(control).addTo(map);
 
-navigator.geolocation.watchPosition((pos) => {
+const id = navigator.geolocation.watchPosition((pos) => {
   // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
   // settingUp Tiles On Map
   // routing
 
   // map.removeControl(control);
+  // console.log(control._selectedRoute?.waypoints);
   control.setWaypoints([
     L.latLng(pos.coords.latitude, pos.coords.longitude),
     L.latLng(target.latitude, target.longitude),
   ]);
+
+  if (
+    target.latitude === pos.coords.latitude &&
+    target.longitude === pos.coords.longitude
+  ) {
+    console.log("Congratulations, you reached the target");
+    navigator.geolocation.clearWatch(id);
+  } else {
+    console.log("comming");
+    // Delivery Boys Lat and Long
+  }
 });
 
 // var id, target, options;
