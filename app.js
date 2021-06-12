@@ -357,7 +357,7 @@ let marker = L.marker(dwarka5).addTo(map);
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
 
-  marker = new L.marker(e.latlng, {
+  marker = L.marker(e.latlng, {
     icon: L.icon({
       iconUrl: "pizza.jpg",
       iconSize: [30, 40],
@@ -370,10 +370,10 @@ function onLocationFound(e) {
   markerLayer.removeLayer(marker);
 
   // if (marker) map.removeLayer(marker);
-  L.marker(e.latlng)
-    .addTo(map)
-    .bindPopup("You are within " + radius + " meters from this point")
-    .openPopup();
+  // L.marker(e.latlng)
+  //   .addTo(map)
+  //   .bindPopup("You are within " + radius + " meters from this point")
+  //   .openPopup();
   // L.circle(e.latlng, radius).addTo(map);
 }
 
