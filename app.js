@@ -237,6 +237,12 @@ const myLoc = [28.606556, 77.063133];
 //   }
 // );
 
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 let map;
 // Our Users Lat Lng
 let target = {
@@ -256,40 +262,43 @@ navigator.geolocation.getCurrentPosition((pos) => {
   });
   tiles.addTo(map);
 
-  var control = L.Routing.control({
-    router: L.Routing.esri({
-      liveTraffic: true,
-      profile: "Driving",
-      steps: true,
-      serviceUrl:
-        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
-    }),
-
-    alternatives: true,
-    geocoder: L.Control.Geocoder.nominatim(),
-    show: false,
-    fitSelectedRoutes: true,
-    waypoints: [
-      L.latLng(pos.coords.latitude, pos.coords.longitude),
-      L.latLng(target.latitude, target.longitude),
-    ],
-  }).addTo(map);
-
-  L.Routing.errorControl(control).addTo(map);
-  // L.Routing.control({
+  // var control = L.Routing.control({
   //   router: L.Routing.esri({
+  //     liveTraffic: true,
+  //     profile: "Driving",
+  //     steps: true,
   //     serviceUrl:
   //       "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
   //   }),
+
+  //   alternatives: true,
+  //   geocoder: L.Control.Geocoder.nominatim(),
+  //   show: false,
+  //   fitSelectedRoutes: true,
   //   waypoints: [
   //     L.latLng(pos.coords.latitude, pos.coords.longitude),
   //     L.latLng(target.latitude, target.longitude),
   //   ],
-  //   autoRoute: true,
-  //   fitSelectedRoutes: true,
-  //   show: false,
   // }).addTo(map);
+
   // L.Routing.errorControl(control).addTo(map);
+  var control = L.Routing.control({
+    router: L.Routing.esri({
+      liveTraffic: true,
+      profile: "Driving",
+      serviceUrl:
+        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+    }),
+    waypoints: [
+      L.latLng(pos.coords.latitude, pos.coords.longitude),
+      L.latLng(target.latitude, target.longitude),
+    ],
+    geocoder: L.Control.Geocoder.nominatim(),
+    autoRoute: true,
+    fitSelectedRoutes: true,
+    show: false,
+  }).addTo(map);
+  L.Routing.errorControl(control).addTo(map);
 });
 
 // var id, target, options;
