@@ -357,7 +357,7 @@ let marker = L.marker(dwarka5).addTo(map);
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
 
-  marker = L.marker(e.latlng, {
+  marker = new L.marker(e.latlng, {
     icon: L.icon({
       iconUrl: "pizza.jpg",
       iconSize: [30, 40],
