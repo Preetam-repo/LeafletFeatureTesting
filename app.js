@@ -351,8 +351,10 @@ let googleStreets = L.tileLayer(
 
 map.locate({ watch: true });
 map.setView(dwarka5, 18);
+let marker = L.marker(dwarka5).addTo(map);
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
+  if (marker) map.removeLayer(marker);
   L.marker(e.latlng)
     .addTo(map)
     .bindPopup("You are within " + radius + " meters from this point")
