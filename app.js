@@ -257,7 +257,7 @@ const tiles = L.tileLayer(tileUrl, {
 });
 tiles.addTo(map);
 
-var control = L.Routing.control({
+let control = L.Routing.control({
   router: L.Routing.esri({
     liveTraffic: true,
     profile: "Driving",
@@ -281,13 +281,13 @@ const id = navigator.geolocation.watchPosition((pos) => {
   // settingUp Tiles On Map
   // routing
 
-  // map.removeControl(control);
+  map.removeControl(control);
   // console.log(control._selectedRoute?.waypoints);
   // control.setWaypoints([
   //   L.latLng(pos.coords.latitude, pos.coords.longitude),
   //   L.latLng(target.latitude, target.longitude),
   // ]);
-  L.Routing.control({
+  control = L.Routing.control({
     router: L.Routing.esri({
       liveTraffic: true,
       profile: "Driving",
