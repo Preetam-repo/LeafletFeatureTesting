@@ -367,7 +367,7 @@ function onLocationFound(e) {
     .bindPopup("Hello Marker")
     .addTo(markerLayer);
 
-  markerLayer.removeLayer(marker);
+  // markerLayer.removeLayer(marker);
 
   // if (marker) map.removeLayer(marker);
   // L.marker(e.latlng)
