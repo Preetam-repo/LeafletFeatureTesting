@@ -133,7 +133,7 @@ navigator.geolocation.getCurrentPosition(
       reverseWaypoints: true,
       summaryTemplate: "<h2><strong>{distance} , {time}</h2></strong>",
       collapsible: true,
-      // show: false, //  to hide instruction on right
+      show: false, //  to hide instruction on right
     }).addTo(map);
     console.log(control.getPlan());
     console.log(control.getWaypoints());
