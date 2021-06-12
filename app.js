@@ -351,10 +351,25 @@ let googleStreets = L.tileLayer(
 
 map.locate({ watch: true });
 map.setView(dwarka5, 18);
+let markerLayer = L.layerGroup();
 let marker = L.marker(dwarka5).addTo(map);
+
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
-  if (marker) map.removeLayer(marker);
+
+  marker = new L.marker(e.latlng, {
+    icon: L.icon({
+      iconUrl: "pizza.jpg",
+      iconSize: [30, 40],
+    }),
+    clickable: true,
+  })
+    .bindPopup("Hello Marker")
+    .addTo(markerLayer);
+
+  markerLayer.removeLayer(marker);
+
+  // if (marker) map.removeLayer(marker);
   L.marker(e.latlng)
     .addTo(map)
     .bindPopup("You are within " + radius + " meters from this point")
