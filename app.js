@@ -250,35 +250,42 @@ let target = {
 };
 let map = L.map("map");
 map.setView(dwarka5, 18);
+const tiles = L.tileLayer(tileUrl, {
+  attribution: attribution,
+  maxZoom: 20, // max zoom - even if the images will get blurred
+  maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
+});
+tiles.addTo(map);
+
+var control = L.Routing.control({
+  router: L.Routing.esri({
+    liveTraffic: true,
+    profile: "Driving",
+    serviceUrl:
+      "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
+  }),
+  // waypoints: [
+  //   L.latLng(pos.coords.latitude, pos.coords.longitude),
+  //   L.latLng(target.latitude, target.longitude),
+  // ],
+  waypoints: [null],
+  geocoder: L.Control.Geocoder.nominatim(),
+  autoRoute: true,
+  fitSelectedRoutes: true,
+  show: false,
+}).addTo(map);
+L.Routing.errorControl(control).addTo(map);
+
 navigator.geolocation.watchPosition((pos) => {
   // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
-
   // settingUp Tiles On Map
-  const tiles = L.tileLayer(tileUrl, {
-    attribution: attribution,
-    maxZoom: 20, // max zoom - even if the images will get blurred
-    maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
-  });
-  tiles.addTo(map);
-
   // routing
-  var control = L.Routing.control({
-    router: L.Routing.esri({
-      liveTraffic: true,
-      profile: "Driving",
-      serviceUrl:
-        "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
-    }),
-    waypoints: [
-      L.latLng(pos.coords.latitude, pos.coords.longitude),
-      L.latLng(target.latitude, target.longitude),
-    ],
-    geocoder: L.Control.Geocoder.nominatim(),
-    autoRoute: true,
-    fitSelectedRoutes: true,
-    show: false,
-  }).addTo(map);
-  L.Routing.errorControl(control).addTo(map);
+
+  // map.removeControl(control);
+  control.setWaypoints([
+    L.latLng(pos.coords.latitude, pos.coords.longitude),
+    L.latLng(target.latitude, target.longitude),
+  ]);
 });
 
 // var id, target, options;
