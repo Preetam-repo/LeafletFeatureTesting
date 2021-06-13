@@ -41,21 +41,22 @@ navigator.geolocation.getCurrentPosition(
     // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
 
     // settingUp Tiles On Map
-    // const tiles = L.tileLayer(tileUrl, {
-    //   attribution: attribution,
-    //   maxZoom: 20, // max zoom - even if the images will get blurred
-    //   maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
-    // });
+    const tiles = L.tileLayer(tileUrl, {
+      attribution: attribution,
+      maxZoom: 20, // max zoom - even if the images will get blurred
+      maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
+    });
+    tiles.addTo(map);
     // ======== Google Street Tiles ========//
-    let googleStreets = L.tileLayer(
-      "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
-      {
-        maxZoom: 20,
-        subdomains: ["mt0", "mt1", "mt2", "mt3"],
-        maxNativeZoom: 19,
-      }
-    ).addTo(map);
-    // tiles.addTo(map);
+    // let googleStreets = L.tileLayer(
+    //   "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+    //   {
+    //     maxZoom: 20,
+    //     subdomains: ["mt0", "mt1", "mt2", "mt3"],
+    //     maxNativeZoom: 19,
+    //   }
+    // ).addTo(map);
+
     // settingUp Marker On Our Current Location
     L.marker([latitude, longitude])
       .addTo(map)
