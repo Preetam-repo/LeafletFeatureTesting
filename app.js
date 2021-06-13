@@ -126,7 +126,7 @@ navigator.geolocation.getCurrentPosition(
           "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
       }),
       // waypoints: [L.latLng(dwarka5), L.latLng(uttamNagar)],
-      waypoints: [myLoc, L.latLng(target.latitude, target.longitude)],
+      // waypoints: [myLoc, L.latLng(target.latitude, target.longitude)],
       alternatives: true,
       geocoder: L.Control.Geocoder.nominatim(),
       routeWhileDragging: false,
@@ -134,7 +134,7 @@ navigator.geolocation.getCurrentPosition(
       reverseWaypoints: true,
       summaryTemplate: "<h2><strong>{distance} , {time}</h2></strong>",
       collapsible: true,
-      show: false, //  to hide instruction on right
+      // show: false, //  to hide instruction on right
     }).addTo(map);
     console.log(control.getPlan());
     console.log(control.getWaypoints());
