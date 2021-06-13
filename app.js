@@ -28,8 +28,8 @@ const searchResult = document.querySelector("#searchResults");
 const myLoc = [28.606556, 77.063133];
 let control = new L.Control();
 let target = {
-  latitude: 28.5977029,
-  longitude: 77.0574221,
+  latitude: 28.6085015,
+  longitude: 77.0640435,
 };
 // getting current location
 navigator.geolocation.getCurrentPosition(
@@ -134,7 +134,7 @@ navigator.geolocation.getCurrentPosition(
       reverseWaypoints: true,
       summaryTemplate: "<h2><strong>{distance} , {time}</h2></strong>",
       collapsible: true,
-      show: true, //  to hide instruction on right
+      // show: true, //  to hide instruction on right
     }).addTo(map);
     console.log(control.getPlan());
     console.log(control.getWaypoints());
