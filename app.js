@@ -28,8 +28,8 @@ const searchResult = document.querySelector("#searchResults");
 const myLoc = [28.606556, 77.063133];
 let control = new L.Control();
 let target = {
-  latitude: 28.6085015,
-  longitude: 77.0640435,
+  latitude: 28.6085247,
+  longitude: 77.0649687,
 };
 // getting current location
 navigator.geolocation.getCurrentPosition(
