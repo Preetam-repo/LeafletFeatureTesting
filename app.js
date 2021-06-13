@@ -120,11 +120,12 @@ navigator.geolocation.getCurrentPosition(
     control = L.Routing.control({
       router: L.Routing.esri({
         liveTraffic: true,
-        profile: "Driving",
+        profile: "Walking",
         steps: true,
         serviceUrl:
           "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
       }),
+      fitSelectedRoutes: "true",
       // waypoints: [L.latLng(dwarka5), L.latLng(uttamNagar)],
       waypoints: [L.latLng(myLoc), L.latLng(target.latitude, target.longitude)],
       alternatives: true,
