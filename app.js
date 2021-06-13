@@ -126,7 +126,7 @@ navigator.geolocation.getCurrentPosition(
           "https://utility.arcgis.com/usrsvcs/appservices/xgPIb7ppsXY9hzSw/rest/services/World/Route/NAServer/Route_World/",
       }),
       // waypoints: [L.latLng(dwarka5), L.latLng(uttamNagar)],
-      waypoints: [myLoc, L.latLng(target.latitude, target.longitude)],
+      waypoints: [L.latLng(myLoc), L.latLng(target.latitude, target.longitude)],
       alternatives: true,
       geocoder: L.Control.Geocoder.nominatim(),
       routeWhileDragging: false,
@@ -405,15 +405,15 @@ navigator.geolocation.getCurrentPosition(
 
 //////////////////4////////////////////////
 
-// navigator.geolocation.watchPosition(
-//   function (e) {
-//     console.log(control.getWaypoints());
-//     console.log(e);
-//     control.spliceWaypoints(0, 1, [e.coords.latitude, e.coords.longitude]);
-//   },
-//   (error) => console.error(error),
-//   {
-//     enableHighAccuracy: true,
-//     timeout: 20000,
-//   }
-// );
+navigator.geolocation.watchPosition(
+  function (e) {
+    console.log(control.getWaypoints());
+    console.log(e);
+    control.spliceWaypoints(0, 1, [e.coords.latitude, e.coords.longitude]);
+  },
+  (error) => console.error(error),
+  {
+    enableHighAccuracy: true,
+    timeout: 20000,
+  }
+);
