@@ -1,6 +1,6 @@
 // const tileUrl = "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"; // tile layer
 const tileUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"; // OSM standard tile layer
-// ======== Google Street Tiles ========//
+// // ======== Google Street Tiles ========//
 // let googleStreets = L.tileLayer(
 //   "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
 //   {
@@ -41,12 +41,21 @@ navigator.geolocation.getCurrentPosition(
     // const street = L.esri.basemapLayer("Streets").addTo(map); // for streets layer
 
     // settingUp Tiles On Map
-    const tiles = L.tileLayer(tileUrl, {
-      attribution: attribution,
-      maxZoom: 20, // max zoom - even if the images will get blurred
-      maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
-    });
-    tiles.addTo(map);
+    // const tiles = L.tileLayer(tileUrl, {
+    //   attribution: attribution,
+    //   maxZoom: 20, // max zoom - even if the images will get blurred
+    //   maxNativeZoom: 19, //  images to the particular zoom level - so that it can't be blurred
+    // });
+    // ======== Google Street Tiles ========//
+    let googleStreets = L.tileLayer(
+      "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+      {
+        maxZoom: 20,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        maxNativeZoom: 19,
+      }
+    ).addTo(map);
+    // tiles.addTo(map);
     // settingUp Marker On Our Current Location
     L.marker([latitude, longitude])
       .addTo(map)
